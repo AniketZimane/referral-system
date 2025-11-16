@@ -240,7 +240,7 @@ A full-stack referral and credit system built with Next.js, Express, TypeScript,
 
 ## 📝 License
 
-This project is licensed under the MIT License.
+
 
 ## 🆘 Support
 
