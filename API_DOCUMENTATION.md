@@ -2,7 +2,7 @@
 
 ## Base URL
 ```
-http://localhost:5000/api
+https://referral-system-amber.vercel.app/api
 ```
 
 ## Authentication
