@@ -25,6 +25,6 @@ services:
     ports:
       - "3000:3000"
     environment:
-      NEXT_PUBLIC_API_URL: "http://localhost:5000/api"
+      NEXT_PUBLIC_API_URL: "https://referral-system-amber.vercel.app/api"
     depends_on:
       - backend
