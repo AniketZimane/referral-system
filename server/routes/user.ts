@@ -27,7 +27,7 @@ router.get('/dashboard', authenticateToken, async (req: AuthRequest, res) => {
         totalReferrals: referrals.length,
         convertedReferrals: convertedReferrals.length,
         totalCreditsEarned: user.credits,
-        referralLink: `${process.env.FRONTEND_URL || 'http://localhost:3000'}/register?r=${user.referralCode}`
+        referralLink: `${process.env.FRONTEND_URL || 'https://referral-system-amber.vercel.app'}/register?r=${user.referralCode}`
       }
     };
 
