@@ -25,6 +25,6 @@ services:
     ports:
       - "3000:3000"
     environment:
-      NEXT_PUBLIC_API_URL: "https://referral-backend.onrender.com/api"
+      NEXT_PUBLIC_API_URL: "https://render.com/docs/web-services#port-binding/api"
     depends_on:
       - backend
