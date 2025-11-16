@@ -72,7 +72,7 @@ export default function Dashboard() {
   };
 
   const shareReferralLink = async () => {
-    if (navigator.share && dashboardData?.stats.referralLink) {
+    if (typeof navigator !== 'undefined' && 'share' in navigator && dashboardData?.stats.referralLink) {
       try {
         await navigator.share({
           title: 'Join our referral program!',
@@ -201,7 +201,7 @@ export default function Dashboard() {
                 <Copy className="h-4 w-4" />
                 {copySuccess ? 'Copied!' : 'Copy Link'}
               </button>
-              {navigator.share && (
+              {typeof navigator !== 'undefined' && 'share' in navigator && (
                 <button
                   onClick={shareReferralLink}
                   className="btn-secondary flex items-center gap-2"
