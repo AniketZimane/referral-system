@@ -28,7 +28,6 @@ router.get('/dashboard', authenticateToken, async (req: AuthRequest, res) => {
         convertedReferrals: convertedReferrals.length,
         totalCreditsEarned: user.credits,
         referralLink: `https://referral-system-amber.vercel.app/register?r=${user.referralCode}`
-
       }
     };
 

@@ -2,7 +2,7 @@
 
 ## Base URL
 ```
-http://localhost:5000/api
+https://referral-system-amber.vercel.app/api
 ```
 
 ## Authentication
@@ -97,7 +97,7 @@ Authorization: Bearer <token>
     "totalReferrals": 3,
     "convertedReferrals": 2,
     "totalCreditsEarned": 4,
-    "referralLink": "http://localhost:3000/register?r=JOHN123"
+    "referralLink": "https://referral-system-amber.vercel.app/register?r=JOHN123"
   }
 }
 ```

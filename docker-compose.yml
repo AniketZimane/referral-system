@@ -14,7 +14,7 @@ services:
       PORT: 5000
       JWT_SECRET: f94540c025300e59fa8b12ba67ae8b0d3d7740882c29eedd40bff0208eb1cc5d0966304fa117b8df8f76054b7b518aa966090873099ac60a1cd3173d4684667a
       MONGODB_URI: mongodb+srv://addeveloper1604_db_user:n6X706WnlprhNCmX@cluster0.q3xu0ul.mongodb.net/referral-system?retryWrites=true&w=majority&appName=Cluster0
-      FRONTEND_URL: "http://localhost:3000"
+      FRONTEND_URL: "https://referral-system-amber.vercel.app/"
 
   frontend:
     build:
@@ -25,6 +25,6 @@ services:
     ports:
       - "3000:3000"
     environment:
-      NEXT_PUBLIC_API_URL: "http://localhost:5000/api"
+      NEXT_PUBLIC_API_URL: "https://render.com/docs/web-services#port-binding/api"
     depends_on:
       - backend
