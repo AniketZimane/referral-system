@@ -5,10 +5,9 @@ export interface IUser extends Document {
   password: string;
   name: string;
   referralCode: string;
-  referredBy?: string;
+  referredBy?: mongoose.Types.ObjectId;
   credits: number;
   hasPurchased: boolean;
-  createdAt: Date;
 }
 
 const UserSchema = new Schema<IUser>({
@@ -19,7 +18,6 @@ const UserSchema = new Schema<IUser>({
   referredBy: { type: Schema.Types.ObjectId, ref: 'User' },
   credits: { type: Number, default: 0 },
   hasPurchased: { type: Boolean, default: false },
-  createdAt: { type: Date, default: Date.now }
-});
+}, { timestamps: true });
 
 export default mongoose.model<IUser>('User', UserSchema);

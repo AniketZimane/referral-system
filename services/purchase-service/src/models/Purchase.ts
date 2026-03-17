@@ -1,11 +1,10 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IPurchase extends Document {
-  userId: string;
+  userId: mongoose.Types.ObjectId;
   productName: string;
   amount: number;
   isFirstPurchase: boolean;
-  createdAt: Date;
 }
 
 const PurchaseSchema = new Schema<IPurchase>({
@@ -13,7 +12,6 @@ const PurchaseSchema = new Schema<IPurchase>({
   productName: { type: String, required: true },
   amount: { type: Number, required: true },
   isFirstPurchase: { type: Boolean, default: false },
-  createdAt: { type: Date, default: Date.now }
-});
+}, { timestamps: true });
 
 export default mongoose.model<IPurchase>('Purchase', PurchaseSchema);

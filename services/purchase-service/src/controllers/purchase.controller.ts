@@ -1,41 +1,21 @@
-import express from 'express';
+import { Response } from 'express';
+import { AuthRequest } from '../middleware/auth';
 import User from '../models/User';
 import Referral from '../models/Referral';
 import Purchase from '../models/Purchase';
-import { authenticateToken, AuthRequest } from '../middleware/auth';
 
-const router = express.Router();
-
-router.post('/simulate', authenticateToken, async (req: AuthRequest, res) => {
+export const simulatePurchase = async (req: AuthRequest, res: Response) => {
   try {
     const { productName, amount } = req.body;
-
-    console.log('Purchase request - userId:', req.userId);
-    console.log('Purchase request - body:', req.body);
 
     if (!productName || !amount) {
       return res.status(400).json({ error: 'productName and amount are required' });
     }
 
-    if (!req.userId) {
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
-
     const user = await User.findById(req.userId);
-    console.log('User found:', user ? user.email : 'NOT FOUND');
-
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
+    if (!user) return res.status(404).json({ error: 'User not found' });
 
     const isFirstPurchase = !user.hasPurchased;
-
-    const purchase = new Purchase({
-      userId: req.userId,
-      productName,
-      amount,
-      isFirstPurchase
-    });
 
     if (isFirstPurchase) {
       user.hasPurchased = true;
@@ -45,7 +25,7 @@ router.post('/simulate', authenticateToken, async (req: AuthRequest, res) => {
         const referral = await Referral.findOne({
           referrer: user.referredBy,
           referred: req.userId,
-          creditsAwarded: false
+          creditsAwarded: false,
         });
 
         if (referral) {
@@ -64,25 +44,16 @@ router.post('/simulate', authenticateToken, async (req: AuthRequest, res) => {
     }
 
     await user.save();
-    await purchase.save();
+    const purchase = await Purchase.create({ userId: req.userId, productName, amount, isFirstPurchase });
 
     res.json({
       success: true,
-      purchase: {
-        id: purchase._id,
-        productName: purchase.productName,
-        amount: purchase.amount,
-        isFirstPurchase: purchase.isFirstPurchase
-      },
+      purchase: { id: purchase._id, productName, amount, isFirstPurchase },
       creditsEarned: isFirstPurchase ? 2 : 0,
-      totalCredits: user.credits
+      totalCredits: user.credits,
     });
   } catch (error: any) {
-    console.error('Purchase error name:', error.name);
-    console.error('Purchase error message:', error.message);
-    console.error('Purchase error stack:', error.stack);
+    console.error('Purchase error:', error.message);
     res.status(500).json({ error: error.message || 'Server error' });
   }
-});
-
-export default router;
+};
