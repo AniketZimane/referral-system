@@ -1,7 +1,7 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IPurchase extends Document {
-  userId: string;
+  userId: mongoose.Types.ObjectId;
   productName: string;
   amount: number;
   isFirstPurchase: boolean;
@@ -9,7 +9,7 @@ export interface IPurchase extends Document {
 }
 
 const PurchaseSchema = new Schema<IPurchase>({
-  userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  userId: { type: Schema.Types.ObjectId as unknown as typeof Schema.Types.ObjectId, ref: 'User', required: true },
   productName: { type: String, required: true },
   amount: { type: Number, required: true },
   isFirstPurchase: { type: Boolean, default: false },
