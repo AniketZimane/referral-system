@@ -1,8 +1,8 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IReferral extends Document {
-  referrer: string;
-  referred: string;
+  referrer: mongoose.Types.ObjectId;
+  referred: mongoose.Types.ObjectId;
   status: 'pending' | 'converted';
   creditsAwarded: boolean;
   createdAt: Date;
@@ -10,8 +10,8 @@ export interface IReferral extends Document {
 }
 
 const ReferralSchema = new Schema<IReferral>({
-  referrer: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  referred: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  referrer: { type: Schema.Types.ObjectId as any, ref: 'User', required: true },
+  referred: { type: Schema.Types.ObjectId as any, ref: 'User', required: true },
   status: { type: String, enum: ['pending', 'converted'], default: 'pending' },
   creditsAwarded: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },

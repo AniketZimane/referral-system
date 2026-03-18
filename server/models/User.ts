@@ -5,7 +5,7 @@ export interface IUser extends Document {
   password: string;
   name: string;
   referralCode: string;
-  referredBy?: string;
+  referredBy?: mongoose.Types.ObjectId;
   credits: number;
   hasPurchased: boolean;
   createdAt: Date;
@@ -16,7 +16,7 @@ const UserSchema = new Schema<IUser>({
   password: { type: String, required: true },
   name: { type: String, required: true },
   referralCode: { type: String, required: true, unique: true },
-  referredBy: { type: Schema.Types.ObjectId, ref: 'User' },
+  referredBy: { type: Schema.Types.ObjectId as any, ref: 'User' },
   credits: { type: Number, default: 0 },
   hasPurchased: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now }
