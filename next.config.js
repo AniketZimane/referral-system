@@ -3,7 +3,7 @@ const nextConfig = {
   async rewrites() {
     const backendUrl =
       process.env.NODE_ENV === 'production'
-        ? process.env.NEXT_PUBLIC_API_URL_PROD?.replace('/api', '')
+        ? 'https://referral-backend.onrender.com'
         : 'http://localhost:5000';
 
     return [
