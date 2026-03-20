@@ -1,16 +1,23 @@
-# Backend Dockerfile
-FROM node:18-alpine
+# Stage 1 - Build
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 
 COPY package.json package-lock.json* ./
-
-# Install all deps including devDependencies (needed for tsx)
 RUN npm install
 
-# Copy only backend source
 COPY server/ ./server/
 COPY tsconfig.json ./
+
+# Stage 2 - Production
+FROM node:18-alpine AS runner
+
+WORKDIR /app
+
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/server ./server
+COPY --from=builder /app/tsconfig.json ./
+COPY --from=builder /app/package.json ./
 
 EXPOSE 5000
 
