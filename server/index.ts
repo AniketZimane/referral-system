@@ -26,9 +26,11 @@ app.use(express.json());
 app.get('/health', (_, res) => res.json({ status: 'ok' }));
 
 // Database connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/referral-system')
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((error) => console.error('MongoDB connection error:', error));
+const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/referral-system';
+console.log('Connecting to MongoDB:', mongoUri.replace(/:([^@]+)@/, ':****@'));
+mongoose.connect(mongoUri)
+  .then(() => console.log('Connected to MongoDB ✅'))
+  .catch((error) => console.error('MongoDB connection error:', error.message));
 
 // Routes
 app.use('/api/auth', authRoutes);
