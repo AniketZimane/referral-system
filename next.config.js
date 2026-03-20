@@ -3,7 +3,7 @@ const nextConfig = {
   async rewrites() {
     const backendUrl =
       process.env.NODE_ENV === 'production'
-        ? 'https://referral-backend.onrender.com'
+        ? 'https://referral-system-1-qkw8.onrender.com'
         : 'http://localhost:5000';
 
     return [
